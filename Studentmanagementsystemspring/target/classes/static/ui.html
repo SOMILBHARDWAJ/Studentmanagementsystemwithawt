@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+</head>
+<body>
+    <h1>Student Registration</h1>
+    <form id="studentForm">
+        <input type="text" id="name" placeholder="Student Name" required>
+        <input type="text" id="contactDetails" placeholder="Contact Details" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <input type="text" id="pincode" placeholder="Pincode" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const student = {
+                name: document.getElementById('name').value,
+                contactDetails: document.getElementById('contactDetails').value,
+                address: document.getElementById('address').value,
+                pincode: document.getElementById('pincode').value
+            };
+
+            fetch('/api/students/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(student)
+            }).then(response => response.json())
+              .then(data => console.log(data));
+        });
+    </script>
+</body>
+</html>
